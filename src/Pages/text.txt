@@ -1,0 +1,117 @@
+<Grid container spacing={2}>
+  <Grid item xs={12} md={6}>
+
+  </Grid>
+  <Grid item xs={12} md={6}>
+
+  </Grid>
+
+</Grid>
+
+
+
+
+
+
+
+
+
+
+import { useState } from 'react';
+import axios from 'axios';
+import Compress from 'compress.js';
+
+const compress = new Compress()
+const Registration = () => {
+    const [image, setImage] = useState(null);
+    const [name, setName] = useState('');
+    const [data, setData] = useState([]);
+    const handelimgupload = e => {
+        const file = e.target.files[0];
+        setImage(file);
+    
+
+    }
+
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        const formData = new FormData();
+        console.log(image);
+        formData.set('key', '83086cac66afe6cb44e98530b1eddae6')
+        formData.append('image', image)
+        if (image.size > 2000000) {
+            console.log("This image cant be upload");
+            return;
+        }
+        axios({
+            method: 'post',
+            url: 'https://api.imgbb.com/1/upload',
+            data: formData
+        })
+            .then((response) => {
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:5000/users',
+                    data: {
+                        image: response.data.data.image.url,
+                        name:name
+                    }
+                })
+                .then((res) => {
+                    setName('');
+                    setImage(null);
+                })
+          
+            })
+
+
+        console.log(image);
+
+    }
+
+    axios.get(`http://localhost:5000/users`)
+        .then(res => {
+
+            setData(res.data);
+
+        })
+
+        const handelname = e =>{
+            e.preventDefault();
+            const username = e.target.value;
+            setName(username);
+            e.target.value=''
+        }
+
+    return (
+        <div>
+            <div>
+                <div>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            className="upload-image"
+                            accept="image/*"
+                            type="file"
+                            id='upload'
+                            onChange={handelimgupload}
+                        />
+                        <input
+                            type='text'
+                            onChange={handelname}
+                        />
+                        <button type='submit'>Submit</button>
+                    </form>
+                </div>
+                <div>
+                    {
+                        data.map(datas => <img className='img' src={datas.image} />)
+                    }
+                </div>
+
+            </div>
+        </div>
+    );
+};
+
+export default Registration;
