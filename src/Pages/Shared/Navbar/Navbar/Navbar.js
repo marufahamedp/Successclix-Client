@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from '@mui/material';
 import useAuth from '../../../../hooks/useAuth';
 import UserProfile from '../../../UserInterface/UserProfile/UserProfile/UserProfile';
+import useUsers from '../../../../hooks/useUsers';
+import EmailVerify from '../../../Verifyusers/VerifyEmail/EmailVerify';
+
 const Navbar = () => {
-    const { user, logout } = useAuth();
+    const { user, logout, userfirebase, verifybysendingemail } = useAuth();
+    const {users} = useUsers()
+
+  
+   
+    const filterusers = users.filter(userr => userr.email == user?.email);
+
     return (
         <div>
+            {
+                userfirebase?.emailVerified === false && <div>
+                   <EmailVerify></EmailVerify>
+                </div> 
+            }
             <Container>
+                
+              
                 <nav>
                     <div className="logo">
                         <h1>Successclix</h1>
@@ -23,7 +39,14 @@ const Navbar = () => {
 
                     {
                         user.email ? <div className='useroptions'> <h4>{user.displayName}</h4>
-                            <UserProfile></UserProfile>
+
+                            {
+                                filterusers.map(filteruser=>  <UserProfile
+                                key={filteruser._id}
+                                filteruser={filteruser}
+                                ></UserProfile>)
+                            }
+                            
                             
                              </div> : <div className="nav-btn">
                             <Link className="primary-link" to="/login"> <button className="login-btn">Login</button></Link>

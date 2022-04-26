@@ -12,12 +12,11 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import useAuth from '../../../../hooks/useAuth';
-import { Link } from 'react-router-dom';
-
-const UserProfile = () => {
-
+import { Link, useParams } from 'react-router-dom';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+const UserProfile = ({ filteruser }) => {
     const { user, logout } = useAuth();
-
+    const { profileID } = useParams()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -80,10 +79,10 @@ const UserProfile = () => {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <MenuItem>
-                       <Link to="/myprofile" className='secondary-link' style={{display:'flex', alignItems:'center'}}> <Avatar /> <span>Profile</span></Link>
+                        <Link to={`/myprofile/${filteruser._id}`} className='secondary-link' style={{ display: 'flex', alignItems: 'center' }}> <Avatar /> <span>Profile</span></Link>
                     </MenuItem>
                     <MenuItem>
-                        <Avatar /> My account
+                        <Link to={`/dashboard`} className='secondary-link' style={{ display: 'flex', alignItems: 'center' }}> <DashboardIcon style={{ color: '#BDBDBD', marginRight: '3px', fontSize: '30px' }} /> <span> Dashboard</span></Link>
                     </MenuItem>
                     <Divider />
                     <MenuItem>
@@ -98,7 +97,7 @@ const UserProfile = () => {
                         </ListItemIcon>
                         Settings
                     </MenuItem>
-                    <MenuItem  onClick={logout}>
+                    <MenuItem onClick={logout}>
                         <ListItemIcon>
                             <Logout fontSize="small" />
                         </ListItemIcon>

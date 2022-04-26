@@ -1,6 +1,6 @@
 import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
 import { FormControl, Grid, IconButton, Input, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import cartoon from '../../../images/cartoon.png';
@@ -8,23 +8,30 @@ import mail from '../../../images/icon/mail.png';
 import password from '../../../images/icon/password.png';
 import google from '../../../images/icon/google.png';
 import useAuth from '../../../hooks/useAuth';
+import Alert from '@mui/material/Alert';
 const Login = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-
+    const [showforget, setShowforget] = useState(false)
     const location = useLocation();
     const navigate = useNavigate();
-
-
-
-    const { user, loginUser, signInWithGoogle, isLoading, authError } = useAuth();
+    const { user, loginUser, signInWithGoogle, isLoading, authError, sendPasswordReset } = useAuth();
     const onSubmit = data => {
-      loginUser(data.email, data.password, location, navigate);
-      console.log(data)
+        loginUser(data.email, data.password, location, navigate);
+        sendPasswordReset(data.email)
+        console.log(data)
     };
     const handelgoogleSingin = () => {
-      signInWithGoogle(location, navigate);
+        signInWithGoogle(location, navigate);
     }
+
+    const handelforget = e => {
+        setShowforget(true)
+    }
+
+    const logerrors = authError.slice(9);
+
+
     return (
         <div>
 
@@ -49,10 +56,19 @@ const Login = () => {
 
                                 <h3 className='form-title'>Welcome</h3>
 
+                                {
+                                    authError && <div  className='autherror'>
+                                        <Alert severity="error">{logerrors}</Alert>
+                                    </div>
+                                }
+
+
                                 <form onSubmit={handleSubmit(onSubmit)}>
 
 
-
+                                    {
+                                        showforget && <h3 className='form-title'>Enter Your Email To Reset</h3>
+                                    }
 
 
                                     <div className="mailbox">
@@ -62,30 +78,37 @@ const Login = () => {
                                     </div>
                                     {errors.emal?.type === 'required' && "Email is required"}
 
+                                    {
+                                        !showforget && <div className="passwordbox">
+                                            <img src={password} alt="" />
+                                            <input placeholder='Password' type="password" {...register("password")} />
+                                        </div>
+                                    }
 
 
-                                    <div className="passwordbox">
-                                        <img src={password} alt="" />
-                                        <input placeholder='Password' type="password" {...register("password")} />
-                                    </div>
+
                                     {errors.password?.type === 'required' && "Password is required"}
 
                                     <div className="forgetpass">
-                                        <small>
-                                            <Link to='/'>Forget Password?</Link>
+                                        <small onClick={handelforget}>
+                                            Forget Password?
                                         </small>
                                     </div>
 
 
-                                    <button type="submit" className="primary-circle-btn loginfrombtn">Login</button>
-
+                                    {
+                                        showforget && <button type="submit" className="primary-circle-btn loginfrombtn">Send Reset Link</button>
+                                    }
+                                    {
+                                        !showforget && <button type="submit" className="primary-circle-btn loginfrombtn">Login</button>
+                                    }
 
                                     <div className="divided-by-or">
                                         <hr /> <p>or</p> <hr />
                                     </div>
 
                                     <div className="google-login">
-                                    <button onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Goolge</p></button>
+                                        <button onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Goolge</p></button>
                                     </div>
 
                                     <div className="have-an-id">

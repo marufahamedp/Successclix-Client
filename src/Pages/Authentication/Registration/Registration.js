@@ -8,7 +8,7 @@ import country from '../../../images/icon/country.png';
 import password from '../../../images/icon/password.png';
 import google from '../../../images/icon/google.png';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-
+import Alert from '@mui/material/Alert';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -33,16 +33,7 @@ const Registration = () => {
         signInWithGoogle(location, navigate);
       }
 
-    // select
-
-    // const [country, setCountry] = React.useState('');
-
-    // const handleChange = (event) => {
-    //     setCountry(event.target.value);
-    // };
-
-    // select
-
+      const logerrors = authError.slice(9);
 
 
     return (
@@ -68,6 +59,12 @@ const Registration = () => {
                             <div className='form-container'>
 
                                 <h3 className='form-title'>Register Now</h3>
+
+                                {
+                                    authError && <div id='autherror'  className='autherror'>
+                                        <Alert severity="error">{logerrors}</Alert>
+                                    </div>
+                                }
 
                                 <form onSubmit={handleSubmit(onSubmit)}>
 
