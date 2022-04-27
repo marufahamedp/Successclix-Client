@@ -49,12 +49,13 @@ import ManageDeposits from './Pages/Dashboard/AdminOptions/ManageDeposits/Manage
 import ManageWithdrawals from './Pages/Dashboard/AdminOptions/ManageWithdrawals/ManageWithdrawals/ManageWithdrawals';
 import ManageSupport from './Pages/Dashboard/AdminOptions/ManageSupport/ManageSupport/ManageSupport';
 import MakeAdmin from './Pages/Dashboard/AdminOptions/MakeAdmin/MakeAdmin';
+import Foram from './Pages/Foram/Foram/Foram';
 
 
 function App() {
 
   return (
-    <div>
+    <div >
            <AuthProvider>
       <Router>
         <Routes>
@@ -109,6 +110,8 @@ function App() {
           <Route path="/login" element={<Login />}>
           </Route>
           <Route path="/registration" element={<Registration />}>
+          </Route>
+          <Route path="/foram" element={<PrivateRoute><Foram/></PrivateRoute>}>
           </Route>
           <Route path="/myprofile/:profileID" element={<Profile />}>
             </Route>

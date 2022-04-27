@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Platform from 'react-platform-js'
 
 const Dashboard = () => {
@@ -17,6 +17,27 @@ const Dashboard = () => {
    const deviceModel = Platform.DeviceModel
    const deviceVendor = Platform.DeviceVendor
    const ua = Platform.UA
+   const [location, setlocation] = useState([]);
+   useEffect(()=>{
+     fetch(`https://ipinfo.io/json?token=bbf0b81c5263d3`)
+     .then(res=>res.json())
+     .then(data=>{
+         console.log(data)
+         setlocation(data);
+     })
+   }, [])
+
+
+
+   
+const dateTime =   new Date().toLocaleString();
+
+
+
+
+
+
+
     const handelsend = e => {
         e.preventDefault()
         
@@ -35,6 +56,16 @@ const Dashboard = () => {
             <h1>{deviceModel}</h1>
             <h1>{deviceVendor}</h1>
             <h1>{ua}</h1>
+            <h1>{location.ip}</h1>
+            <h1>{location.city}</h1>
+            <h1>{location.region}</h1>
+            <h1>{location.country}</h1>
+            <h1>{location.loc}</h1>
+            <h1>{location.org}</h1>
+            <h1>{location.poltal}</h1>
+            <h1>{location.timezone}</h1>
+            <h1>{dateTime}</h1>
+            
             <button onClick={handelsend}>submit</button>
         </div>
     );

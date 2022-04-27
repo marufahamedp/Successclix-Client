@@ -57,7 +57,7 @@ const Login = () => {
                                 <h3 className='form-title'>Welcome</h3>
 
                                 {
-                                    authError && <div  className='autherror'>
+                                    authError && <div className='autherror'>
                                         <Alert severity="error">{logerrors}</Alert>
                                     </div>
                                 }
@@ -103,19 +103,20 @@ const Login = () => {
                                         !showforget && <button type="submit" className="primary-circle-btn loginfrombtn">Login</button>
                                     }
 
-                                    <div className="divided-by-or">
-                                        <hr /> <p>or</p> <hr />
-                                    </div>
 
-                                    <div className="google-login">
-                                        <button onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Goolge</p></button>
-                                    </div>
-
-                                    <div className="have-an-id">
-                                        <p>Have no account yet?</p>
-                                    </div>
-                                    <Link className="primary-link" to="/registration"><button className="secondary-btn loginfrombtn">Register Now</button></Link>
                                 </form>
+                                <div className="divided-by-or">
+                                    <hr /> <p>or</p> <hr />
+                                </div>
+
+                                <div className="google-login">
+                                    <button onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Goolge</p></button>
+                                </div>
+
+                                <div className="have-an-id">
+                                    <p>Have no account yet?</p>
+                                </div>
+                                <Link className="primary-link" to="/registration"><button className="secondary-btn loginfrombtn">Register Now</button></Link>
                             </div>
                         </Grid>
 

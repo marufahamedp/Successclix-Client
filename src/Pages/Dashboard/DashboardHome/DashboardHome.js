@@ -34,7 +34,9 @@ import CoPresentIcon from '@mui/icons-material/CoPresent';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HistoryIcon from '@mui/icons-material/History';
 import UserMenuList from '../UsersOptions/UserMenuList/UserMenuList';
-
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 const drawerWidth = 250;
 
 const DashboardHome = (props) => {

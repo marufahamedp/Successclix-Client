@@ -14,6 +14,8 @@ import Logout from '@mui/icons-material/Logout';
 import useAuth from '../../../../hooks/useAuth';
 import { Link, useParams } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import AdUnitsIcon from '@mui/icons-material/AdUnits';
+
 const UserProfile = ({ filteruser }) => {
     const { user, logout } = useAuth();
     const { profileID } = useParams()
@@ -39,7 +41,7 @@ const UserProfile = ({ filteruser }) => {
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                         >
-                            <Avatar sx={{ width: 32, height: 32, backgroundColor: '#6956E5' }}>M</Avatar>
+                            <Avatar sx={{ width: 32, height: 32, backgroundColor: '#1B1464' }}>M</Avatar>
                         </IconButton>
                     </Tooltip>
                 </Box>

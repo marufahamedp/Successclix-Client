@@ -22,18 +22,18 @@ const Registration = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const {  registerUser, isLoading, authError, signInWithGoogle } = useAuth();
+    const { registerUser, isLoading, authError, signInWithGoogle } = useAuth();
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = data => {
         registerUser(data.email, data.password, data.fullname, data.country, navigate);
-      };
+    };
 
-      const handelgoogleSingin = () => {
+    const handelgoogleSingin = () => {
         signInWithGoogle(location, navigate);
-      }
+    }
 
-      const logerrors = authError.slice(9);
+    const logerrors = authError.slice(9);
 
 
     return (
@@ -61,7 +61,7 @@ const Registration = () => {
                                 <h3 className='form-title'>Register Now</h3>
 
                                 {
-                                    authError && <div id='autherror'  className='autherror'>
+                                    authError && <div id='autherror' className='autherror'>
                                         <Alert severity="error">{logerrors}</Alert>
                                     </div>
                                 }
@@ -100,7 +100,7 @@ const Registration = () => {
 
 
 
-                                   
+
 
 
 
@@ -117,19 +117,20 @@ const Registration = () => {
                                     <button type="submit" className="primary-circle-btn loginfrombtn">Register</button>
 
 
-                                    <div className="divided-by-or">
-                                        <hr /> <p>or</p> <hr />
-                                    </div>
 
-                                    <div className="google-login">
-                                        <button  onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Goolge</p></button>
-                                    </div>
-
-                                    <div className="have-an-id">
-                                        <p>Already have an account?</p>
-                                    </div>
-                                    <Link className="primary-link" to="/login"><button className="secondary-btn loginfrombtn">Login Now</button></Link>
                                 </form>
+                                <div className="divided-by-or">
+                                    <hr /> <p>or</p> <hr />
+                                </div>
+
+                                <div className="google-login">
+                                    <button onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Goolge</p></button>
+                                </div>
+
+                                <div className="have-an-id">
+                                    <p>Already have an account?</p>
+                                </div>
+                                <Link className="primary-link" to="/login"><button className="secondary-btn loginfrombtn">Login Now</button></Link>
                             </div>
                         </Grid>
 

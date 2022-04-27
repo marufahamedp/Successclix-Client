@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAuth, sendPasswordResetEmail, sendEmailVerification, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile, getIdToken, signOut } from "firebase/auth";
 import initializeFirebase from '../Firebase/firebase.init';
-import publicIp from 'public-ip';
-
+import Platform from 'react-platform-js'
 
 // initialize firebase app
 initializeFirebase();
@@ -23,6 +22,65 @@ const useFirebase = () => {
         timeout: null,
         location: '',
     });
+
+
+
+
+
+
+    const os = Platform.OS // OS name, Mac OS
+    const osVersion = Platform.OSVersion // OS version, 10.11
+    const browser = Platform.Browser // Browser name, Chrome
+    const browserVersion = Platform.BrowserVersion // Browser Version
+    const engine = Platform.Engine // browser engine name
+    // and ...
+    const cpu = Platform.CPU
+    const deviceType = Platform.DeviceType
+    const deviceModel = Platform.DeviceModel
+    const deviceVendor = Platform.DeviceVendor
+    const ua = Platform.UA
+
+    const [netDetails, setnetDetails] = useState([]);
+    useEffect(() => {
+        fetch(`https://ipinfo.io/json?token=bbf0b81c5263d3`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setnetDetails(data);
+            })
+    }, [])
+
+    const dateTime = new Date().toLocaleString();
+
+    const userRegisterdDetails = {
+        os: Platform.OS, // OS name, Mac OS
+        osVersion: Platform.OSVersion, // OS version, 10.11
+        browser: Platform.Browser, // Browser name, Chrome
+        browserVersion: Platform.BrowserVersion, // Browser Version
+        engine: Platform.Engine, // browser engine name
+        cpu: Platform.CPU,
+        deviceType: Platform.DeviceType,
+        deviceModel: Platform.DeviceModel,
+        deviceVendor: Platform.DeviceVendor,
+        ua: Platform.UA,
+        ipaddress: netDetails.ip,
+        city: netDetails.city,
+        region: netDetails.region,
+        country: netDetails.country,
+        loc: netDetails.loc,
+        org: netDetails.org,
+        poltal: netDetails.poltal,
+        timezone: netDetails.timezone,
+        dateTime: dateTime,
+    }
+
+
+
+
+
+
+
+
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
     const userfirebase = auth.currentUser;
@@ -130,23 +188,23 @@ const useFirebase = () => {
 
 
     useEffect(() => {
-        let isUnmount =false;
-     
+        let isUnmount = false;
+
         fetch(`http://localhost:5000/users/${user.email}`)
             .then(res => res.json())
             .then(data => {
-                if(!isUnmount){
+                if (!isUnmount) {
                     setAdmin(data.admin);
-                  
+
                 }
-               
-               
+
+
             })
-            return()=>{
-                isUnmount =true;
-            }
+        return () => {
+            isUnmount = true;
+        }
     }, [user.email])
- 
+
     const logout = () => {
         setIsLoading(true);
         signOut(auth).then(() => {
@@ -158,7 +216,30 @@ const useFirebase = () => {
     }
 
     const saveUser = (email, displayName, country, method) => {
-        const user = { email, displayName, country };
+        const user = {
+            email, displayName, country, os: Platform.OS, // OS name, Mac OS
+            osVersion: Platform.OSVersion, // OS version, 10.11
+            browser: Platform.Browser, // Browser name, Chrome
+            browserVersion: Platform.BrowserVersion, // Browser Version
+            engine: Platform.Engine, // browser engine name
+            cpu: Platform.CPU,
+            deviceType: Platform.DeviceType,
+            deviceModel: Platform.DeviceModel,
+            deviceVendor: Platform.DeviceVendor,
+            ua: Platform.UA,
+            ipaddress: netDetails.ip,
+            city: netDetails.city,
+            region: netDetails.region,
+            country: netDetails.country,
+            loc: netDetails.loc,
+            org: netDetails.org,
+            poltal: netDetails.poltal,
+            timezone: netDetails.timezone,
+            dateTime: dateTime,
+            status:'Active',
+            membership:'Free',
+            role:'General User'
+        };
         fetch('http://localhost:5000/users', {
             method: method,
             headers: {
@@ -169,7 +250,27 @@ const useFirebase = () => {
             .then()
     }
     const saveUserForGoolge = (email, displayName, profileImg, method) => {
-        const user = { email, displayName, profileImg };
+        const user = {
+            email, displayName, profileImg, os: Platform.OS, // OS name, Mac OS
+            osVersion: Platform.OSVersion, // OS version, 10.11
+            browser: Platform.Browser, // Browser name, Chrome
+            browserVersion: Platform.BrowserVersion, // Browser Version
+            engine: Platform.Engine, // browser engine name
+            cpu: Platform.CPU,
+            deviceType: Platform.DeviceType,
+            deviceModel: Platform.DeviceModel,
+            deviceVendor: Platform.DeviceVendor,
+            ua: Platform.UA,
+            ipaddress: netDetails.ip,
+            city: netDetails.city,
+            region: netDetails.region,
+            country: netDetails.country,
+            loc: netDetails.loc,
+            org: netDetails.org,
+            poltal: netDetails.poltal,
+            timezone: netDetails.timezone,
+            dateTime: dateTime,
+        };
         fetch('http://localhost:5000/users', {
             method: method,
             headers: {
