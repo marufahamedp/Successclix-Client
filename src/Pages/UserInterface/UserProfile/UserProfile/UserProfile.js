@@ -41,7 +41,14 @@ const UserProfile = ({ filteruser }) => {
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                         >
-                            <Avatar sx={{ width: 32, height: 32, backgroundColor: '#1B1464' }}>M</Avatar>
+                            {
+                                filteruser.profileImg && <img className='menu-userprofileimg' src={filteruser.profileImg} alt="" />
+                            }
+
+                            {
+                                !filteruser.profileImg && <Avatar sx={{ width: 32, height: 32, backgroundColor: '#1B1464' }}></Avatar>
+                            }
+
                         </IconButton>
                     </Tooltip>
                 </Box>

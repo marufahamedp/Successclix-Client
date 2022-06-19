@@ -32,6 +32,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import useAuth from '../../../../hooks/useAuth';
 import useUsers from '../../../../hooks/useUsers';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 const UserMenuList = (props) => {
 
     const { user, logout, userfirebase, verifybysendingemail } = useAuth();
@@ -253,7 +254,16 @@ const UserMenuList = (props) => {
                         </ListItemText>
                     </ListItem>
                 </Link>
-
+                <Link className='dashboard-link' to='/dashboard/managesupport'>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <SupportAgentIcon />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        Support
+                                    </ListItemText>
+                                </ListItem>
+                            </Link>
 
                 <ListItem button onClick={handeldropenlogs}>
                     <ListItemIcon>
@@ -303,6 +313,7 @@ const UserMenuList = (props) => {
                                     </ListItemText>
                                 </ListItem>
                             </Link>
+                     
 
                             <Link className='dashboard-link' to='/dashboard/loginhistory'>
                                 <ListItem button>

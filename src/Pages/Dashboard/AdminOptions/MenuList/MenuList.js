@@ -36,7 +36,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 
 const MenuList = (props) => {
@@ -105,6 +105,16 @@ const MenuList = (props) => {
             </ListItemIcon>
             <ListItemText>
               Users
+            </ListItemText>
+          </ListItem>
+        </Link>
+        <Link className='dashboard-link' to='/dashboard/orders'>
+          <ListItem button>
+            <ListItemIcon>
+              <ManageAccountsIcon/>
+            </ListItemIcon>
+            <ListItemText>
+              Manage Orders
             </ListItemText>
           </ListItem>
         </Link>
@@ -295,16 +305,7 @@ const MenuList = (props) => {
           </ListItem>
         </Link>
 
-        <Link className='dashboard-link' to='/dashboard/managesupport'>
-          <ListItem button>
-            <ListItemIcon>
-              <SupportAgentIcon />
-            </ListItemIcon>
-            <ListItemText>
-              Support
-            </ListItemText>
-          </ListItem>
-        </Link>
+
 
 
       </List>

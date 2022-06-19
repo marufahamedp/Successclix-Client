@@ -220,7 +220,7 @@ const MobileNavBar = () => {
                         <PostAddIcon />
                     </ListItemIcon>
                     <ListItemText>
-                        Foram
+                    Forum
                     </ListItemText>
                 </ListItem>
 

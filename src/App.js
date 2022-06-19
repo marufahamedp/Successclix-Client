@@ -5,8 +5,9 @@ import axios from 'axios';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
 } from "react-router-dom";
+import { Navigate, useLocation } from 'react-router-dom';
 import Home from './Pages/Home/Home/Home';
 import About from './Pages/About/About';
 import Login from './Pages/Authentication/Login/Login';
@@ -44,83 +45,102 @@ import LoginAdsA from './Pages/Dashboard/AdminOptions/Advertisers/LoginAdsA/Logi
 import Coins4Wall from './Pages/Dashboard/AdminOptions/OfferWallsA/Coins4Wall/Coins4Wall';
 import CpxResearch from './Pages/Dashboard/AdminOptions/OfferWallsA/CpxResearch/CpxResearch';
 import WanaadsA from './Pages/Dashboard/AdminOptions/OfferWallsA/Wanaads/WanaadsA';
-import ManageOrders from './Pages/Dashboard/AdminOptions/ManageOrders/ManageOrders/ManageOrders';
+
 import ManageDeposits from './Pages/Dashboard/AdminOptions/ManageDeposits/ManageDeposits/ManageDeposits';
 import ManageWithdrawals from './Pages/Dashboard/AdminOptions/ManageWithdrawals/ManageWithdrawals/ManageWithdrawals';
 import ManageSupport from './Pages/Dashboard/AdminOptions/ManageSupport/ManageSupport/ManageSupport';
 import MakeAdmin from './Pages/Dashboard/AdminOptions/MakeAdmin/MakeAdmin';
 import Foram from './Pages/Foram/Foram/Foram';
+import ThisSiteisUnderCons from './Pages/ThisSiteisUnderCons/ThisSiteisUnderCons';
+import useUsers from './hooks/useUsers';
+import ReferralRoute from './ReferralRoute/ReferralRoute';
+import Payment from './Pages/Dashboard/Payment/Payment';
+import GetmoneyWhenUpgrade from './Pages/Dashboard/UsersOptions/UpgradeAccount/GetmoneyWhenUpgrade';
+import AdminRoute from './AdminRoute/AdminRoute';
+import Investorpacage from './Pages/Dashboard/UsersOptions/Investorpacage/Investorpacage';
+import Orders from './Pages/Dashboard/AdminOptions/ManageOrders/Orders/Orders';
+import EmailUnverifiedRoutr from './EmailUnverifiedRoutr/EmailUnverifiedRoutr';
+import SuspendUsersRoute from './SuspendUsersRoute/SuspendUsersRoute';
+import ManageAllWithdraws from './Pages/Dashboard/AdminOptions/ManageWithdrawals/ManageAllWithdraws/ManageAllWithdraws';
 
 
 function App() {
-
+  const {users}= useUsers()
+  const [userid, setUserid] = useState()
   return (
+    
     <div >
-           <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />}>
-          </Route>
-          <Route path="/home" element={<Home />}>
-          </Route>
-          <Route path="/myhome" element={<UserHome />}>
-          </Route>
-          <Route path="/mydashboard" element={<UserDashboardHome />}>
-          </Route>
-          <Route path="/dashboard" element={<PrivateRoute><DashboardHome /></PrivateRoute>}>
-            
-          <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>} /> 
-          <Route path='/dashboard/paidtoclick' element={<PrivateRoute><PaindToClick/></PrivateRoute>} /> 
-          <Route path='/dashboard/videoads' element={<PrivateRoute><VideoAds/></PrivateRoute>} /> 
-          <Route path='/dashboard/offerwall' element={<PrivateRoute><OfferWall/></PrivateRoute>} /> 
-          <Route path='/dashboard/manageads' element={<PrivateRoute><ManageAds/></PrivateRoute>} /> 
-          <Route path='/dashboard/createads' element={<PrivateRoute><CreateAds/></PrivateRoute>} /> 
-          <Route path='/dashboard/upgradeaccount' element={<PrivateRoute><UpgradeAccount/></PrivateRoute>} /> 
-          <Route path='/dashboard/addfunds' element={<PrivateRoute><AddFunds/></PrivateRoute>} /> 
-          <Route path='/dashboard/withdraw' element={<PrivateRoute><Withdraw/></PrivateRoute>} /> 
-          <Route path='/dashboard/referral' element={<PrivateRoute><Referral/></PrivateRoute>} /> 
-          <Route path='/dashboard/orderhistory' element={<PrivateRoute><OrderHistory/></PrivateRoute>} /> 
-          <Route path='/dashboard/deposithistory' element={<PrivateRoute><DepositHistory/></PrivateRoute>} /> 
-          <Route path='/dashboard/withdrawhistory' element={<PrivateRoute><WithdrawHistory/></PrivateRoute>} /> 
-          <Route path='/dashboard/loginhistory' element={<PrivateRoute><LoginHistorys/></PrivateRoute>} />
-
-          {/* -------------------------foradmin-------------------------  */}
-
-          <Route path='/dashboard/users' element={<PrivateRoute><Users/></PrivateRoute>} />
-          <Route path='/dashboard/ptcadsa' element={<PrivateRoute><PtcAdsA/></PrivateRoute>} />
-          <Route path='/dashboard/videoadsa' element={<PrivateRoute><VideoAdsA/></PrivateRoute>} />
-          <Route path='/dashboard/textadsa' element={<PrivateRoute><TextAdsA/></PrivateRoute>} />
-          <Route path='/dashboard/linkadsa' element={<PrivateRoute><LinkAdsA/></PrivateRoute>} />
-          <Route path='/dashboard/banneradsa' element={<PrivateRoute><BannerAdsA/></PrivateRoute>} />
-          <Route path='/dashboard/ptsuadsa' element={<PrivateRoute><PtsuAdsA/></PrivateRoute>} />
-          <Route path='/dashboard/loginadsa' element={<PrivateRoute><LoginAdsA/></PrivateRoute>} />
-          <Route path='/dashboard/coins4wall' element={<PrivateRoute><Coins4Wall/></PrivateRoute>} />
-          <Route path='/dashboard/cpxresearch' element={<PrivateRoute><CpxResearch/></PrivateRoute>} />
-          <Route path='/dashboard/wanaadsa' element={<PrivateRoute><WanaadsA/></PrivateRoute>} />
-          <Route path='/dashboard/manageorders' element={<PrivateRoute><ManageOrders/></PrivateRoute>} />
-          <Route path='/dashboard/managedeposits' element={<PrivateRoute><ManageDeposits/></PrivateRoute>} />
-          <Route path='/dashboard/managewithdrawals' element={<PrivateRoute><ManageWithdrawals/></PrivateRoute>} />
-          <Route path='/dashboard/managesupport' element={<PrivateRoute><ManageSupport/></PrivateRoute>} />
-          <Route path='/dashboard/makeadmin' element={<PrivateRoute><MakeAdmin/></PrivateRoute>} />
-
-
-          </Route>
-          <Route path="/about" element={<About />}>
-          </Route>
-          <Route path="/login" element={<Login />}>
-          </Route>
-          <Route path="/registration" element={<Registration />}>
-          </Route>
-          <Route path="/foram" element={<PrivateRoute><Foram/></PrivateRoute>}>
-          </Route>
-          <Route path="/myprofile/:profileID" element={<Profile />}>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />}>
             </Route>
-          <Route path='*' element={<PageNotFound />}>
-          </Route>
+            <Route path="/home" element={<Home />}>
+            </Route>
+            <Route path="/myhome" element={<EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr>}>
+            </Route>
+            <Route path="/mydashboard" element={<EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr>}>
+            </Route>
+            <Route path="/dashboard" element={<PrivateRoute><EmailUnverifiedRoutr><DashboardHome /></EmailUnverifiedRoutr></PrivateRoute>}>
+
+              <Route path='/dashboard' element={<PrivateRoute><EmailUnverifiedRoutr><Dashboard /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/paidtoclick' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/videoads' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/offerwall' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/manageads' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/createads' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/upgradeaccount' element={<PrivateRoute><EmailUnverifiedRoutr><UpgradeAccount /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/investorpacage' element={<PrivateRoute><EmailUnverifiedRoutr><Investorpacage /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/getmoneyWhenUpgrade/:upgradeID' element={<PrivateRoute><EmailUnverifiedRoutr><GetmoneyWhenUpgrade /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/addfunds' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/withdraw' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/referral' element={<PrivateRoute><EmailUnverifiedRoutr><Referral /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/orderhistory' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/deposithistory' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/withdrawhistory' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/loginhistory' element={<PrivateRoute><EmailUnverifiedRoutr><LoginHistorys /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/payment' element={<PrivateRoute><EmailUnverifiedRoutr><Payment /></EmailUnverifiedRoutr></PrivateRoute>} />
+
+              {/* -------------------------foradmin-------------------------  */}
+
+              <Route path='/dashboard/users' element={<AdminRoute><Users /></AdminRoute>} />
+              <Route path='/dashboard/ptcadsa' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/videoadsa' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/textadsa' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/linkadsa' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/banneradsa' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/ptsuadsa' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/loginadsa' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/coins4wall' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/cpxresearch' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/wanaadsa' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/orders' element={<PrivateRoute><EmailUnverifiedRoutr><Orders /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/managedeposits' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/managewithdrawals' element={<PrivateRoute><EmailUnverifiedRoutr><ManageAllWithdraws /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/managesupport' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
+              <Route path='/dashboard/makeadmin' element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>} />
 
 
-        </Routes>
-      </Router>
+            </Route>
+            <Route path="/about" element={<EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr>}>
+            </Route>
+            <Route path="/login" element={<Login />}>
+            </Route>
+            <Route path="/registration" element={<Registration />}>
+            </Route>
+           
+         
+    
+            <Route path="/foram" element={<PrivateRoute><EmailUnverifiedRoutr><ThisSiteisUnderCons /></EmailUnverifiedRoutr></PrivateRoute>}>
+            </Route>
+            <Route path="/myprofile/:profileID" element={<EmailUnverifiedRoutr><Profile /></EmailUnverifiedRoutr>}>
+            </Route>
+            <Route path='*' element={<PageNotFound />}>
+            </Route>
+
+
+          </Routes>
+        </Router>
       </AuthProvider>
     </div>
   );

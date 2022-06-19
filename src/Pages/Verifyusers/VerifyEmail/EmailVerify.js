@@ -35,7 +35,7 @@ const EmailVerify = () => {
                     sx={{ mb: 2 }}
                   
                 >
-                    Your email address has not been verified yet!
+                    Your email address has not been verified yet! Please Verify for get access
                     <button className='verifybtn' onClick={handelsendemail}>Verify Now</button>
                 </Alert>
             </Collapse>

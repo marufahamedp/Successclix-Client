@@ -14,7 +14,7 @@ const Hero = () => {
                     <Grid item xs={12} md={6}>
                         <div className="animate__fadeInLeft">
                             <h1 className="hero-title title" sx={{ fontSize: { xs: '2.813rem' } }}>
-                                Earn money by completing simple tasks online.
+                                Earn money by completing simple tasks.
                             </h1>
                             <p className="hero-slogan secondary-text">
                                 Everyone can join, it’s absolutely FREE!

@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
-import { getAuth, sendPasswordResetEmail, sendEmailVerification, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile, getIdToken, signOut } from "firebase/auth";
+import { deleteUser, getAuth, sendPasswordResetEmail, sendEmailVerification, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile, getIdToken, signOut } from "firebase/auth";
 import initializeFirebase from '../Firebase/firebase.init';
 import Platform from 'react-platform-js'
+import axios from 'axios';
+
+
 
 // initialize firebase app
 initializeFirebase();
 
 const useFirebase = () => {
 
+
+    const [info, setInfo] = useState([]);
 
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
@@ -45,12 +50,15 @@ const useFirebase = () => {
         fetch(`https://ipinfo.io/json?token=bbf0b81c5263d3`)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+
                 setnetDetails(data);
             })
     }, [])
 
     const dateTime = new Date().toLocaleString();
+    var today = new Date();
+
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
     const userRegisterdDetails = {
         os: Platform.OS, // OS name, Mac OS
@@ -72,6 +80,7 @@ const useFirebase = () => {
         poltal: netDetails.poltal,
         timezone: netDetails.timezone,
         dateTime: dateTime,
+        date: date,
     }
 
 
@@ -111,7 +120,7 @@ const useFirebase = () => {
             })
             .catch((error) => {
                 setAuthError(error.message);
-                console.log(error);
+
             })
             .finally(() => setIsLoading(false));
     }
@@ -139,12 +148,38 @@ const useFirebase = () => {
 
 
     const loginUser = (email, password, location, navigate) => {
+
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const destination = location?.state?.from || '/';
                 navigate(destination);
                 setAuthError('');
+
+                axios.post(`https://aqueous-ridge-88057.herokuapp.com/userlogs`, {
+                    email, os: Platform.OS, // OS name, Mac OS
+                    osVersion: Platform.OSVersion, // OS version, 10.11
+                    browser: Platform.Browser, // Browser name, Chrome
+                    browserVersion: Platform.BrowserVersion, // Browser Version
+                    engine: Platform.Engine, // browser engine name
+                    cpu: Platform.CPU,
+                    deviceType: Platform.DeviceType,
+                    deviceModel: Platform.DeviceModel,
+                    deviceVendor: Platform.DeviceVendor,
+                    ua: Platform.UA,
+                    ipaddress: netDetails.ip,
+                    city: netDetails.city,
+                    region: netDetails.region,
+                    country: netDetails.country,
+                    loc: netDetails.loc,
+                    org: netDetails.org,
+                    poltal: netDetails.poltal,
+                    timezone: netDetails.timezone,
+                    dateTime: dateTime,
+                    date: date,
+                })
+                    .then(res => {
+                    })
             })
             .catch((error) => {
                 setAuthError(error.message);
@@ -161,6 +196,30 @@ const useFirebase = () => {
                 setAuthError('');
                 const destination = location?.state?.from || '/';
                 navigate(destination);
+                axios.post(`https://aqueous-ridge-88057.herokuapp.com/userlogs`, {
+                    email: user.email, os: Platform.OS, // OS name, Mac OS
+                    osVersion: Platform.OSVersion, // OS version, 10.11
+                    browser: Platform.Browser, // Browser name, Chrome
+                    browserVersion: Platform.BrowserVersion, // Browser Version
+                    engine: Platform.Engine, // browser engine name
+                    cpu: Platform.CPU,
+                    deviceType: Platform.DeviceType,
+                    deviceModel: Platform.DeviceModel,
+                    deviceVendor: Platform.DeviceVendor,
+                    ua: Platform.UA,
+                    ipaddress: netDetails.ip,
+                    city: netDetails.city,
+                    region: netDetails.region,
+                    country: netDetails.country,
+                    loc: netDetails.loc,
+                    org: netDetails.org,
+                    poltal: netDetails.poltal,
+                    timezone: netDetails.timezone,
+                    dateTime: dateTime,
+                    date: date,
+                })
+                    .then(res => {
+                    })
             }).catch((error) => {
                 setAuthError(error.message);
             }).finally(() => setIsLoading(false));
@@ -168,6 +227,7 @@ const useFirebase = () => {
 
     // observer user state
     useEffect(() => {
+        setIsLoading(true);
         const unsubscribed = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
             if (user) {
@@ -189,17 +249,15 @@ const useFirebase = () => {
 
     useEffect(() => {
         let isUnmount = false;
-
-        fetch(`http://localhost:5000/users/${user.email}`)
+        setAdmin(true)
+        fetch(`https://aqueous-ridge-88057.herokuapp.com/users/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 if (!isUnmount) {
                     setAdmin(data.admin);
-
                 }
-
-
             })
+
         return () => {
             isUnmount = true;
         }
@@ -214,6 +272,8 @@ const useFirebase = () => {
         })
             .finally(() => setIsLoading(false));
     }
+
+
 
     const saveUser = (email, displayName, country, method) => {
         const user = {
@@ -236,11 +296,13 @@ const useFirebase = () => {
             poltal: netDetails.poltal,
             timezone: netDetails.timezone,
             dateTime: dateTime,
-            status:'Active',
-            membership:'Free',
-            role:'General User'
+            date: date,
+            status: 'Active',
+            membership: 'Free',
+            role: 'General User',
+            nidVerification: 'Unverified'
         };
-        fetch('http://localhost:5000/users', {
+        fetch('https://aqueous-ridge-88057.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'
@@ -270,8 +332,13 @@ const useFirebase = () => {
             poltal: netDetails.poltal,
             timezone: netDetails.timezone,
             dateTime: dateTime,
+            date: date,
+            status: 'Active',
+            membership: 'Free',
+            role: 'General User',
+            nidVerification: 'Unverified'
         };
-        fetch('http://localhost:5000/users', {
+        fetch('https://aqueous-ridge-88057.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'

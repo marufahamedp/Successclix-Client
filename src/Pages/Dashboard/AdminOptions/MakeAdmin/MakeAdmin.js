@@ -8,27 +8,30 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { useForm } from "react-hook-form";
 import useAuth from '../../../../hooks/useAuth';
+import axios from 'axios';
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
- 
-const MakeAdmin = () => {
-    const { register, handleSubmit, reset } = useForm();
+});
+
+const MakeAdmin = ({ user }) => {
     const [open, setOpen] = React.useState(false);
-  
+
     const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setOpen(false);
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
     };
     const [success, setSuccess] = useState(false);
     const { token } = useAuth();
-    const onSubmit = data => {
-        const email = data.email ;
-        const user ={ email }
-        fetch('http://localhost:5000/users/admin', {
+    const [userroles, setUserroles] = useState(user.role)
+    const userrole =user.role;
+
+    const handleMakeadmin = email => {
+        const user = { email }
+       if(userrole ==='General User'){
+        fetch('https://aqueous-ridge-88057.herokuapp.com/users/admin', {
             method: 'PUT',
             headers: {
                 'authorization': `Bearer ${token}`,
@@ -41,30 +44,41 @@ const MakeAdmin = () => {
                 if (data.modifiedCount) {
                     setSuccess(true);
                     setOpen(true);
-                    reset();
+                    setUserroles('Admin');
                 }
             })
-    };
+       }
+       else{
+        axios({
+            method: 'put',
+            url: `https://aqueous-ridge-88057.herokuapp.com/users/adminpower`,
+            data: {
+                role: 'General User',
+                email: email
+            }
+        })
+            .then((res) => {
+                setSuccess(true);
+                setOpen(true);
+                setUserroles('General User');
+            })
+       }
+    }
+
+
+
+
 
     return (
         <div>
-            <Typography sx={{fontWeight:600, textAlign:'center'}} variant="h4">Make an Admin</Typography>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <TextField
-                    sx={{ width: '100%' }}
-                    label="Email"
-                    type="email"
-                    {...register("email")}
-                    variant="standard" />
-               <Box sx={{textAlign:'center'}}>
-               <Button className="speedButton" sx={{my:3}} type="submit" variant="contained">Make Admin</Button>
-               </Box>
-            </form>
-            {success &&  <Stack spacing={2} sx={{ width: '100%' }}> 
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-       <Alert  sx={{mb:3, width: '100%'}} severity="success">Made Admin successfully!</Alert>
-      </Snackbar>
-    </Stack>}
+            <Button onClick={(e) => handleMakeadmin(user.email)}>
+                {user.role}
+            </Button>
+            {success && <Stack spacing={2} sx={{ width: '100%' }}>
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert sx={{ mb: 3, width: '100%' }} severity="success">Made {userroles} successfully!</Alert>
+                </Snackbar>
+            </Stack>}
         </div>
     );
 };

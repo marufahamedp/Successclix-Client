@@ -5,11 +5,11 @@ const useUsers = () => {
     const [users, setUsers] = useState([]);
     const [spinner, setSpinner] = useState(true);
     useEffect(()=>{
-      fetch(`http://localhost:5000/users`)
+      fetch(`https://aqueous-ridge-88057.herokuapp.com/users`)
       .then(res=>res.json())
       .then(data=>setUsers(data))
       .finally(() => setSpinner(false));
-    }, [])
+    }, [users])
 
     return {
         users,

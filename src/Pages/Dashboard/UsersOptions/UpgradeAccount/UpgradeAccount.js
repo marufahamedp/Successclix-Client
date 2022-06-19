@@ -1,9 +1,10 @@
 import React from 'react';
+import Pricing from '../../../Pricing/Pricing';
 
 const UpgradeAccount = () => {
     return (
         <div>
-            UpgradeAccount
+            <Pricing></Pricing>
         </div>
     );
 };

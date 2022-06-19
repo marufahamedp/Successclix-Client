@@ -15,7 +15,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import useAuth from '../../../hooks/useAuth';
-
+import logo from '../../../images/logo.png'
 const Registration = () => {
 
     const [loginData, setLoginData] = useState({});
@@ -53,8 +53,13 @@ const Registration = () => {
                                     </small>
                                 </div>
                             </div>
+                            <div className="img-box-img">
+                                <img src={logo} alt="" />
+                            </div>
+                         
                         </Grid>
-                        <h2 className="img-box-text">Successclix</h2>
+
+                      
                         <Grid item xs={12} md={4} className="form-box">
                             <div className='form-container'>
 
@@ -124,7 +129,7 @@ const Registration = () => {
                                 </div>
 
                                 <div className="google-login">
-                                    <button onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Goolge</p></button>
+                                    <button onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Continue With Google</p></button>
                                 </div>
 
                                 <div className="have-an-id">

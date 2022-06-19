@@ -13,7 +13,8 @@ import useAuth from '../../../../hooks/useAuth';
 import { useParams } from 'react-router-dom';
 import ProfileBasicInfo from '../ProfileBasicInfo/ProfileBasicInfo/ProfileBasicInfo';
 const ProfileDetails = ({ filteruser }) => {
-    const { _id, email, name, userCoverPhoto, profileImg } = filteruser;
+  
+    const { _id, email, name, userCoverPhoto, profileImg,nidfronpart, nidbackpart } = filteruser;
     const { users } = useUsers();
     const { profileID } = useParams()
     const { user } = useAuth();
@@ -21,98 +22,7 @@ const ProfileDetails = ({ filteruser }) => {
         display: 'none',
     });
 
-    // preview Cover Photo
-
-    const [coverImage, setCoverImage] = useState(null);
-    const handelcoverimgupload = e => {
-        const file = e.target.files[0];
-        var output = document.getElementById('coveroutput');
-        output.src = URL.createObjectURL(e.target.files[0]);
-        output.onload = function () {
-            URL.revokeObjectURL(output.src) // free memory
-        }
-        setCoverImage(file);
-    }
-    // preview Profile Photo
-
-    const [userProfilePhoto, setUserProfilePhoto] = useState(null);
-    const handelProfileimgupload = e => {
-        const file = e.target.files[0];
-        var output = document.getElementById('profileoutput');
-        output.src = URL.createObjectURL(e.target.files[0]);
-        output.onload = function () {
-            URL.revokeObjectURL(output.src) // free memory
-        }
-        setUserProfilePhoto(file);
-    }
-
-    // update cover Photo
-
-    const handleCoverSubmit = e => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.set('key', '83086cac66afe6cb44e98530b1eddae6')
-        formData.append('image', coverImage)
-        if (coverImage.size > 2000000) {
-            console.log("This image cant be upload");
-            return;
-        }
-        axios({
-            method: 'post',
-            url: 'https://api.imgbb.com/1/upload',
-            data: formData
-        })
-            .then((response) => {
-                axios({
-                    method: 'put',
-                    url: `http://localhost:5000/users/photo`,
-                    data: {
-                        userCoverPhoto: response.data.data.image.url,
-                        email: user.email
-                    }
-                })
-                    .then((res) => {
-                        setCoverImage({});
-                    })
-
-            })
-
-    }
-
-    // update Profile Photo
-
-    const handleProfileSubmit = e => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.set('key', '83086cac66afe6cb44e98530b1eddae6')
-        formData.append('image', userProfilePhoto)
-        if (userProfilePhoto.size > 2000000) {
-            console.log("This image cant be upload");
-            return;
-        }
-        axios({
-            method: 'post',
-            url: 'https://api.imgbb.com/1/upload',
-            data: formData
-        })
-            .then((response) => {
-                axios({
-                    method: 'put',
-                    url: `http://localhost:5000/users/photo`,
-                    data: {
-                        profileImg: response.data.data.image.url,
-                        email: user.email
-                    }
-                })
-                    .then((res) => {
-                        setUserProfilePhoto({});
-                    })
-
-            })
-
-    }
+    
 
     return (
         <div>
@@ -126,51 +36,31 @@ const ProfileDetails = ({ filteruser }) => {
                         <section className="user-imgs">
                             <div className="center-cover">
                                 <div className="cover-img">
-                                    {
-                                        !coverImage && <img src={userCoverPhoto} alt="" />
-                                    }
+
+                                <img src={userCoverPhoto} alt="" />
 
                                     <img id="coveroutput" />
-                                    <div className="cover-img-upload-icon">
-
-                                        <form onSubmit={handleCoverSubmit}>
-                                            <Stack>
-                                                <label htmlFor="cover-img-upload">
-                                                    <Input onChange={handelcoverimgupload} accept="image/*" id="cover-img-upload" type="file" />
-                                                    <IconButton color="primary" aria-label="upload picture" component="span">
-                                                        <PhotoCamera style={{ color: 'red' }} />
-                                                    </IconButton>
-                                                </label>
-                                            </Stack>
-                                            <button type="submit">Upload</button>
-                                        </form>
-                                    </div>
+                                   
                                     <div className="profile-img">
-                                    {
-                                        !userProfilePhoto && <img src={profileImg} alt="" />
-                                    }
-
-                                    <img id="profileoutput" />
-                                        <div className="profile-img-upload-icon">
-
-                                            <form onSubmit={handleProfileSubmit}>
-                                                <Stack>
-                                                    <label htmlFor="profile-img-upload">
-                                                        <Input onChange={handelProfileimgupload} accept="image/*" id="profile-img-upload" type="file" />
-                                                        <IconButton color="primary" aria-label="upload picture" component="span">
-                                                            <PhotoCamera style={{ color: 'red' }} />
-                                                        </IconButton>
-                                                    </label>
-                                                </Stack>
-                                                <button type="submit">Upload</button>
-                                            </form>
-                                        </div>
+                                    <img src={profileImg} alt="" />
+                                       
                                     </div>
 
                                 </div>
                             </div>
 
 
+                        </section>
+                        <section>
+                            <div className="nid">
+                                <label htmlFor="">NID Front : </label>
+                                <img src={nidfronpart} alt="" />
+                            </div>
+
+                            <div className="nid">
+                            <label htmlFor="">NID Back : </label>
+                                <img src={nidbackpart} alt="" />
+                            </div>
                         </section>
 
                     </Grid>

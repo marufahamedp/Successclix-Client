@@ -37,10 +37,11 @@ import UserMenuList from '../UsersOptions/UserMenuList/UserMenuList';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import ThisSiteisUnderCons from '../../ThisSiteisUnderCons/ThisSiteisUnderCons';
 const drawerWidth = 250;
 
 const DashboardHome = (props) => {
-    const { user, logout, userfirebase, verifybysendingemail } = useAuth();
+    const { user, logout, userfirebase, verifybysendingemail, admin } = useAuth();
     const { users } = useUsers()
     const filterusers = users.filter(userr => userr.email == user?.email);
 
@@ -111,12 +112,18 @@ const DashboardHome = (props) => {
             </Toolbar>
             <Divider />
 
-        <MenuList></MenuList>
+            {
+                admin && <MenuList></MenuList>
+
+            }
+
 
             <Divider />
            
 
-        <UserMenuList></UserMenuList>
+        {
+            !admin && <UserMenuList></UserMenuList>
+        }
                
 
         </div>
@@ -125,89 +132,90 @@ const DashboardHome = (props) => {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
+
         <div>
-            <Box sx={{ display: 'flex' }}>
-                <CssBaseline />
-                <AppBar
-                    position="fixed"
-                    sx={{
-                        width: { sm: `calc(100% - ${drawerWidth}px)` },
-                        ml: { sm: `${drawerWidth}px` },
-                    }}
-                    className="userdashbordnav"
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar
+                position="fixed"
+                sx={{
+                    width: { sm: `calc(100% - ${drawerWidth}px)` },
+                    ml: { sm: `${drawerWidth}px` },
+                }}
+                className="userdashbordnav"
 
-                >
-                    <Toolbar style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="start"
-                            onClick={handleDrawerToggle}
-                            sx={{ mr: 2, display: { sm: 'none' } }}
-                        >
-                            <MenuIcon sx={{ color: '#6956E5' }} />
-                        </IconButton>
-                        <Box style={{ width: '100%' }}>
-                            <div className="dashboard-nav">
-                                <div className="welcomeusers">
-                                    <h3>Welcome {user.displayName}</h3>
-                                    <small>Hope you have a good day</small>
-                                </div>
-                                <div className="dashboard-users-options">
-                                    {
-                                        filterusers.map(filteruser => <UserProfile
-                                            key={filteruser._id}
-                                            filteruser={filteruser}
-                                        ></UserProfile>)
-                                    }
-                                </div>
+            >
+                <Toolbar style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
+                    >
+                        <MenuIcon sx={{ color: '#6956E5' }} />
+                    </IconButton>
+                    <Box style={{ width: '100%' }}>
+                        <div className="dashboard-nav">
+                            <div className="welcomeusers">
+                                <h3>Welcome {user.displayName}</h3>
+                                <small>Hope you have a good day</small>
                             </div>
-                        </Box>
-                    </Toolbar>
-                </AppBar>
+                            <div className="dashboard-users-options">
+                                {
+                                    filterusers.map(filteruser => <UserProfile
+                                        key={filteruser._id}
+                                        filteruser={filteruser}
+                                    ></UserProfile>)
+                                }
+                            </div>
+                        </div>
+                    </Box>
+                </Toolbar>
+            </AppBar>
 
-                <Box
-                    component="nav"
-                    sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-                    aria-label="mailbox folders"
+            <Box
+                component="nav"
+                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+                aria-label="mailbox folders"
+            >
+                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                <Drawer
+                    container={container}
+                    variant="temporary"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                    sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    }}
                 >
-                    {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                    <Drawer
-                        container={container}
-                        variant="temporary"
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                        sx={{
-                            display: { xs: 'block', sm: 'none' },
-                            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                    <Drawer
-                        variant="permanent"
-                        sx={{
-                            display: { xs: 'none', sm: 'block' },
-                            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                        }}
-                        open
-                    >
-                        {drawer}
-                    </Drawer>
-                </Box>
-                <Box
-                    component="main"
-                    sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+                    {drawer}
+                </Drawer>
+                <Drawer
+                    variant="permanent"
+                    sx={{
+                        display: { xs: 'none', sm: 'block' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    }}
+                    open
                 >
-                    <Toolbar />
-
-                    <Outlet></Outlet>
-                </Box>
+                    {drawer}
+                </Drawer>
             </Box>
-        </div>
+            <Box
+                component="main"
+                sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+            >
+                <Toolbar />
+
+                <Outlet></Outlet>
+            </Box>
+        </Box>
+    </div>
     );
 };
 

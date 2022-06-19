@@ -15,10 +15,6 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AdUnitsIcon from '@mui/icons-material/AdUnits';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import MobileNavBar from '../MobileNavBar/MobileNavBar';
-
-
-
-
 const Navbar = () => {
     const { user, logout, userfirebase, verifybysendingemail } = useAuth();
     const { users } = useUsers()
@@ -38,7 +34,7 @@ const Navbar = () => {
                     <EmailVerify></EmailVerify>
                 </div>
             }
-            <Container sx={{ display: { xs: 'none', md: 'block', lg: 'block' } }}>
+            <Container>
                 <nav>
                     <div className="logo">
                         <img src={logo} alt="" />
@@ -48,9 +44,9 @@ const Navbar = () => {
                         <div className="homedropdownem">
                             <button className="homedropbtn"><span>Earn Money</span> <ArrowDropDownIcon id="droparrowearnmoney" /></button>
                             <div id='earnhomedropdowncontent' className="homedropdown-content">
-                                <Link to='/'>Paid To Click</Link>
-                                <Link to='/'>Video Wall</Link>
-                                <Link to='/'>Offer Wall</Link>
+                                <Link to='/dashboard/paidtoclick'>Paid To Click</Link>
+                                <Link to='/dashboard/videoads'>Video Wall</Link>
+                                <Link to='/dashboard/offerwall'>Offer Wall</Link>
                             </div>
 
                         </div>
@@ -58,12 +54,12 @@ const Navbar = () => {
                             <button className="homedropbtn"><span>Advertisers</span> <ArrowDropDownIcon id="addroparrow" /></button>
 
                             <div id='adhomedropdowncontent' className="homedropdown-content">
-                                <Link to='/'>Manage Ads</Link>
-                                <Link to='/'>Create Ads</Link>
+                                <Link to='/dashboard/manageads'>Manage Ads</Link>
+                                <Link to='/dashboard/createads'>Create Ads</Link>
                             </div>
 
                         </div>
-                        <div className="generaloption"> <button className="homedropbtn"><Link to='/foram'>Foram</Link></button></div>
+                        <div className="generaloption"> <button className="homedropbtn"><Link to='/foram'>Forum</Link></button></div>
 
                     </div>
 
@@ -97,11 +93,7 @@ const Navbar = () => {
 
 
             </Container>
-            {/* Mobile navbar */}
 
-            <Box sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }}>
-                <MobileNavBar></MobileNavBar>
-            </Box>
         </div>
     );
 };

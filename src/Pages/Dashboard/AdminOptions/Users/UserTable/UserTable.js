@@ -11,29 +11,27 @@ import UserTableData from '../Users/UserTableData/UserTableData';
 const UserTable = ({ users }) => {
 
 
-    const handeladmin = e => {
-        const filterusers = users.filter(userr => userr.role == 'admin');
-    }
+
 
 
 
 
     return (
         <div>
-            <button onClick={handeladmin}>admin</button>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell sx={{ minWidth: 200 }}>Name</TableCell>
-                            <TableCell>Role</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>Membership</TableCell>
-                            <TableCell>Country</TableCell>
-                            <TableCell sx={{ minWidth: 200 }}>Registerd Date</TableCell>
-                            <TableCell>Device</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>Edit</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>ID</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>Email</TableCell>
+                            <TableCell sx={{ minWidth: 200, textAlign:'center' }}>Name</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>Role</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>Status</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>Membership</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>Country</TableCell>
+                            <TableCell sx={{ minWidth: 200, textAlign:'center' }}>Registerd Date</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>Device</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

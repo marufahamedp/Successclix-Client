@@ -8,6 +8,7 @@ const PrivateRoute = ({ children, ...rest }) => {
     if (isLoading) { return <div className="spinner-border" role="status">
     <span className="visually-hidden">Loading...</span>
   </div> }
+
     if (user.email) {
         return children;
     }

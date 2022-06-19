@@ -9,6 +9,8 @@ import password from '../../../images/icon/password.png';
 import google from '../../../images/icon/google.png';
 import useAuth from '../../../hooks/useAuth';
 import Alert from '@mui/material/Alert';
+import logo from '../../../images/logo.png'
+import useUsers from '../../../hooks/useUsers'
 const Login = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -19,7 +21,7 @@ const Login = () => {
     const onSubmit = data => {
         loginUser(data.email, data.password, location, navigate);
         sendPasswordReset(data.email)
-        console.log(data)
+     
     };
     const handelgoogleSingin = () => {
         signInWithGoogle(location, navigate);
@@ -31,7 +33,9 @@ const Login = () => {
 
     const logerrors = authError.slice(9);
 
-
+    const { users } = useUsers()
+    const filterusers = users.filter(userr => userr.email == user?.email);
+    
     return (
         <div>
 
@@ -40,17 +44,32 @@ const Login = () => {
                 <div className="container-box">
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={8} className='all-in-center img-box'>
-                            <div className='cartoon-img'>
-                                <img src={cartoon} alt="" />
-                                <div>
-                                    <h3>Welcome aboard my friend</h3>
-                                    <small>
-                                        just a couple of clicks and we start
-                                    </small>
+                            {
+                                filterusers[0]?.status == "Suspend" && <div>
+                                    
+                                    <h1>This account is Suspend</h1>
+
                                 </div>
-                            </div>
+                            }
+                       {
+                           !filterusers[0]?.status == "Suspend" && <div>
+                           <div className='cartoon-img'>
+                                  <img src={cartoon} alt="" />
+                                  <div>
+                                      <h3>Welcome aboard my friend</h3>
+                                      <small>
+                                          just a couple of clicks and we start
+                                      </small>
+                                  </div>
+                              </div>
+                              <div className="img-box-img">
+                                  <img src={logo} alt="" />
+                              </div>
+                           </div>
+                       }
+                         
                         </Grid>
-                        <h2 className="img-box-text">Successclix</h2>
+
                         <Grid item xs={12} md={4} className="form-box all-in-center">
                             <div className='form-container'>
 
@@ -110,7 +129,7 @@ const Login = () => {
                                 </div>
 
                                 <div className="google-login">
-                                    <button onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Goolge</p></button>
+                                    <button onClick={handelgoogleSingin} type="submit" className="secondary-btn loginfrombtn logwithgoogle"><img src={google} alt="" /> <p>Continue With Google</p></button>
                                 </div>
 
                                 <div className="have-an-id">

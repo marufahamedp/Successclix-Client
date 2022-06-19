@@ -1,0 +1,68 @@
+[
+    {
+        "membership": "Free Membership Benefits",
+        "price": "0",
+        "paytype": "One Time",
+        "service1": "Earn $0.01 per click",
+        "service2": "Max 25 ads per day",
+        "service3": "Earn$7.5 per month",
+        "service4": "Unable to get maximum ad",
+        "service5": "Unable to get maximum earning",
+        "buybtn": "Free"
+     },
+    {
+        "membership": "Silver Membership Benefits",
+        "price": "50",
+        "paytype": "One Time",
+        "service1": "Earn $0.02 per click",
+        "service2": "Max 25 ads per day",
+        "service3": "Earn$15 per month",
+        "service4": "Unable to get maximum ad",
+        "service5": "Unable to get maximum earning",
+        "buybtn": "Buy Now"
+     },
+    {
+        "membership": "Gold Membership Benefits",
+        "price": "75",
+        "paytype": "One Time",
+        "service1": "Earn $0.03 per click",
+        "service2": "Max 25 ads per day",
+        "service3": "Earn$22.5 per month",
+        "service4": "Unable to get maximum ad",
+        "service5": "Unable to get maximum earning",
+        "buybtn": "Buy Now"
+     },
+    {
+        "membership": "Platinum Membership Benefits",
+        "price": "100",
+        "paytype": "One Time",
+        "service1": "Earn $0.04 per click",
+        "service2": "Max 25 ads per day",
+        "service3": "Earn $30 per month",
+        "service4": "Unable to get maximum ad",
+        "service5": "Unable to get maximum earning",
+        "buybtn": "Buy Now"
+     },
+    {
+        "membership": "Premium Membership Benefits",
+        "price": "18",
+        "paytype": "One Time",
+        "service1": "Earn $0.05 per click",
+        "service2": "Max 30 ads per day",
+        "service3": "Earn$50 per month",
+        "service4": "Unable to get maximum ad",
+        "service5": "Unable to get maximum earning",
+        "buybtn": "Buy Now"
+     },
+    {
+        "membership": "Investor Membership Benefits",
+        "price": "125",
+        "paytype": "Per Month",
+        "service1": "Invest $125, Get 6.5% Profit/Month",
+        "service2": "Invest $250, Get 7% Profit/Month",
+        "service3": "Invest $375, Get 8% Profit/Month",
+        "service4": "Invest $625, Get 9% Profit/Month",
+        "service5": "Invest $1250, Get 10% Profit/Month",
+        "buybtn": "Buy Now"
+     }
+]

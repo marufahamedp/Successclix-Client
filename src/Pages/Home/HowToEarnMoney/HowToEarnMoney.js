@@ -31,7 +31,7 @@ const HowToEarnMoney = () => {
                         </div>
                         <div className="howtoearnmoney-grid-text">
                             <h3>CASHOUT</h3>
-                            <p>Click on ads and get paid up to 0.01$ each. Up to 100% referral earnings.</p>
+                            <p>You can Cashout to BTC, LTC, Tron, USDT, Bkash, Roket, Nagad, Payneer Account. The Minimum Cashout is just $1</p>
                         </div>
                     </div>
                 </div>
